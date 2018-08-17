@@ -13,8 +13,9 @@ connection.connect(function(error) {
     if(!!error){
       console.log("Error!");
   } else {
-    selectId();
     menu();
+    selectId();
+    
   }
 });  
 
@@ -36,7 +37,7 @@ function selectId() {
         message: "Select a product ID to purchase"
       })
       .then(function(answer) {
-        console.log(answer.productId);
+        // console.log(answer.productId);
         var selectedPdt=answer.productId;
         quantity(selectedPdt);
       });
@@ -100,7 +101,7 @@ connection.query((arg+selectedPdt+"';"), function (err, res) {
 
 });
             updateQty(difference,selectedPdt);
-            menu();
+            // menu();
             }            
         });
       });
@@ -114,7 +115,7 @@ function restock (selectedPdt){
             console.log(error);
         } else {
          console.log(res.affectedRows + " record(s) updated");
-         menu();
+        //  menu();
         }
     });
 }

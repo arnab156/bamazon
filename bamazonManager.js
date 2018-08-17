@@ -61,9 +61,13 @@ function menuOptions() {
             } else {
                 console.log("Items available for sale:");
                 // console.log(res);
+                console.log ("----------------------------------ITEMS AVAILABLE----------------------------------");
+                console.log ("--------------------------------------FOR SALE-------------------------------------");
                 for (var i = 0; i < res.length; i++) {
                     console.log(res[i].id+ " - "+res[i].product_name+", "+res[i].department_name + ", $" + res[i].price+ ", Available Quantity - "+ res[i].stock_quantity);
              }
+                console.log ("----------------------------------THANK YOU!---------------------------------------");
+                console.log ("-----------------------------------------------------------------------------------");
             }
             menuOptions();
         }); 
@@ -76,9 +80,14 @@ function lowInventory(){
         } else {
             console.log("Items with low Inventory:");
             // console.log(res);
+            console.log ("--------------------------------------LOW INVENTORY--------------------------------------");
+            console.log ("--------------------------------------LOW INVENTORY--------------------------------------");
             for (var i = 0; i < res.length; i++) {
+                
                 console.log(res[i].id+ " - "+res[i].product_name+", "+res[i].department_name + ", $" + res[i].price+ ", Available Quantity - "+ res[i].stock_quantity);
          }
+         console.log ("--------------------------------------------------------------------------------------------");
+         console.log ("--------------------------------------------------------------------------------------------");
         }
         menuOptions();
     });   
