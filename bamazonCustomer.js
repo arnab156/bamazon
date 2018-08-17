@@ -13,19 +13,20 @@ connection.connect(function(error) {
     if(!!error){
       console.log("Error!");
   } else {
-   console.log("Items available for sale:");
+    selectId();
+    menu();
+  }
+});  
+
+function menu() {
+    console.log("Items available for sale:");
     connection.query("SELECT * FROM products", function(error, res) {
         //    console.log(res);
         for (var i = 0; i < res.length; i++) {
             console.log(res[i].id+ " - "+res[i].product_name+", "+res[i].department_name + ", $" + res[i].price+ ", "+ res[i].stock_quantity);
-            // if (res[i].stock_quantity<2){
-            //     restock();
-            // }
         }
     });
-    selectId();
-  }
-});  
+}
 
 function selectId() {
     inquirer
@@ -67,33 +68,45 @@ function quantity(selectedPdt){
             // console.log(difference);
             if (difference<0) {
              console.log("Insufficient stock quantity to fulfill your order!");
-             restock();
+             restock(selectedPdt);
             } else {
                 var total = answer.quantity*res[0].price;
                 var totalTax = (answer.quantity*res[0].price)*1.1025;
+                console.log ("-----------------------------------------------------");
+                console.log ("-----------------------------------------------------");
                 console.log("Congrats on your new purchase! You bought "+res[0].product_name+" from the "+res[0].department_name+" department.");
-                console.log("Amount to be paid is $"+ total +" without tax & $"+ totalTax +" inclusing Chicago Sales Tax!");
+                console.log("Amount to be paid is $"+ total +" without tax & $"+ totalTax +" inclusive of Chicago Sales Tax!");
+                console.log ("-----------------------------------------------------");
+                console.log ("-----------------------------------------------------");
                 //update the stock after sale
                 
-                updateQty(difference,selectedPdt);
-                // connection.query("UPDATE products SET stock_quantity ="+ difference +"WHERE id='"+selectedPdt+"'", function(error, res) {
-                //     if(!!error){
-                //         console.log("Error is in this query!");
-                //         console.log(error);
-                //     } else {
-                //      console.log(res.affectedRows + " record(s) updated because of purchase!");
-                //     }
-                // });
-            }
-             
-        
-            
-        });
+// product_sales (total) need to be updated on product table. Also, pull existing sales data.
+var arg = "SELECT product_sales FROM products WHERE id='"
+connection.query((arg+selectedPdt+"';"), function (err, res) {
+    if (err) throw err;
+    // console.log(typeof res);
+    // var resString = JSON.stringify(res);
+    var resData = res[0].product_sales
+    // console.log("*********"+resData);
+    if (resData != "null"){
+        total +=resData;
+    } 
 
+    var argument = "UPDATE products SET product_sales="+ total +" WHERE id='"+selectedPdt+"';";
+    connection.query(argument, function (err, result) {
+        if (err) throw err;
+        // console.log(result.affectedRows + " sales record(s) updated");
+    });
+
+});
+            updateQty(difference,selectedPdt);
+            menu();
+            }            
+        });
       });
 }
 
-function restock (){
+function restock (selectedPdt){
     console.log("Stock Order for this item is being placed and replenished! Please hold.");
     connection.query("UPDATE products SET  stock_quantity = 10 WHERE id='"+selectedPdt+"'", function(error, res) {
         if(!!error){
@@ -101,6 +114,7 @@ function restock (){
             console.log(error);
         } else {
          console.log(res.affectedRows + " record(s) updated");
+         menu();
         }
     });
 }
@@ -110,7 +124,7 @@ function updateQty(difference,selectedPdt){
         var sql = "UPDATE products SET stock_quantity ="+ difference +" WHERE id='"+selectedPdt+"';";
         connection.query(sql, function (err, result) {
           if (err) throw err;
-          console.log(result.affectedRows + " record(s) updated");
+        //   console.log(result.affectedRows + " record(s) updated");
         });
    
 }   
