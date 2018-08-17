@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+const cTable = require('console.table');
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -88,7 +89,7 @@ function createDept(){
             console.log("1 department created");
             connection2.query("SELECT * FROM departments;",function(error, res) {
                 if (error) throw error;
-                console.log(res);
+                // console.log(res);
             });
             menu();
             }); 
@@ -182,33 +183,63 @@ function viewDept(){
             kidsOverhead += resArray[0].overheads; 
             // console.log("Kid's overhead " + kidsOverhead);
             var kidsProfit = totalKids-kidsOverhead;
-
             var argument = "UPDATE departments SET total_profit="+ kidsProfit +" WHERE department_name='Kids';";
             connection2.query(argument, function (err, result) {
                 if (err) throw err;
                 // console.log(result.affectedRows + " kids_total_profit record(s) updated");
             });
+        
+        });
+
+        var cosArray=[];
+        var totalCos = 0;
+        for (z=0; z<res.length;z++){
+            if(res[z].department_name === "Cosmetics"){
+            cosArray.push(res[z].product_sales);
+            } 
+        }
+            for (i=0; i<cosArray.length;i++){
+                totalCos += cosArray[i];
+            }
+        var cosOverhead=0;
+        connection2.query("SELECT overheads FROM departments WHERE department_name = 'Cosmetics'", function(error, res) {
+            var resString = JSON.stringify(res);
+            var resArray = JSON.parse(resString);
+            cosOverhead += resArray[0].overheads; 
+            // console.log("Kid's overhead " + kidsOverhead);
+            var cosProfit = totalCos-cosOverhead;
+            var argument = "UPDATE departments SET total_profit="+ cosProfit +" WHERE department_name='Cosmetics';";
+            connection2.query(argument, function (err, result) {
+                if (err) throw err;
+                // console.log(result.affectedRows + " kids_total_profit record(s) updated");
+            });
+
         });
 
 
        connection2.query ("SELECT * FROM departments;", function(err, result){
                 if (err) throw err;
                 // console.log(result);
-        console.log ("--------------------------------------------------------------------------------------------------------");
-        console.log ("--------------------------------------------------------------------------------------------------------");
+        console.log ("--------BAMAZON-----------------------BAMAZON--------------------------BAMAZON--------------------------");
+        console.log ("------------------------------------BAMAZON------------BAMAZON------------BAMAZON-----------------------");
+        console.log ("-------BAMAZON---------------------------------------BAMAZON--------------------------------------------");
+        console.log ("-----------------BAMAZON----------------BAMAZON------------------------------------BAMAZON--------------");
         console.log("| department_id | department_name | over_head_costs | product_sales | total_profit |") ;  
-
-        console.log("|   " + result[0].department_id + "         | " + result[0].department_name+ "            | $" +result[0].overheads+"            | $"+totalMens+"       | $"+result[0].total_profit+"       |") ;   
+        console.log("|   " + result[0].department_id + "         | " + result[0].department_name+ "            | $" +result[0].overheads+"            | $"+totalMens+"      | $"+result[0].total_profit+"       |") ;   
         console.log("|   " + result[1].department_id + "         | " + result[1].department_name+ "          | $" +result[1].overheads+"            | $"+totalWomens+"       | $"+result[1].total_profit+"     |") ;   
         console.log("|   " + result[2].department_id + "         | " + result[2].department_name+ "            | $" +result[2].overheads+"            | $"+totalKids+"       | $"+result[2].total_profit+"      |") ;   
+        console.log("|   " + result[4].department_id + "         | " + result[4].department_name+ "       | $" +result[4].overheads+"            | $"+totalCos+"        | $"+result[4].total_profit+"     |") ;   
+        
         console.log ("--------------------------------------------------------------------------------------------------------");
         console.log ("--------------------------------------------------------------------------------------------------------");
         menu();
 
        });
-       
-    //  
-    });
-}
+       });
+    }
 
 
+
+
+
+    

@@ -60,9 +60,9 @@ function quantity(selectedPdt){
                 console.log("Error is in this query!");
                 console.log(error);
             } else {
-             console.log("Here are your product information!");
+            //  console.log("Here are your product information!");
             }
-            console.log(res);
+            // console.log(res);
             // console.log(res[0].stock_quantity);
             // console.log(answer.quantity);
             var difference = res[0].stock_quantity-answer.quantity;
