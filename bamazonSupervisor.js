@@ -1,21 +1,3 @@
-
-
-
-
-
-//    | department_id | department_name | over_head_costs | product_sales | total_profit |
-//    | ------------- | --------------- | --------------- | ------------- | ------------ |
-//    | 01            | Electronics     | 10000           | 20000         | 10000        |
-//    | 02            | Clothing        | 60000           | 100000        | 40000        |
-
-// * Hint: You may need to look into aliases in MySQL.
-
-// * Hint: You may need to look into GROUP BYs.
-
-// * Hint: You may need to look into JOINS.
-
-// * **HINT**: There may be an NPM package that can log the table to the console. What's is it? Good question :)
-
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
@@ -115,8 +97,6 @@ function createDept(){
 
 function viewDept(){
     console.log("view department");
-
-    // | department_id | department_name | over_head_costs | product_sales | total_profit |
     
     connection.query("SELECT department_name,product_sales FROM products", function(error, res) {
         if (error) throw error;
