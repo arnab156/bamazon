@@ -1,6 +1,7 @@
 #bamazon!
 
 Video overview: https://www.youtube.com/watch?v=cr4iUYp24Vo&feature=youtu.be
+
 --------------------------------------------------------  
 Where to start? 
 
@@ -33,14 +34,18 @@ In bamazonCustomer.js you can:
   In bamazonSupervisor.js you can
     1. View sales, profits and overheadcosts per department.
     2. Add a new department
---------------------------------------------------------    
+
+--------------------------------------------------------  
+
   Technologies Uses?
     1.Node.js
     2. Inquire NPM Package (https://www.npmjs.com/package/inquirer)
     3.MYSQL NPM Package (https://www.npmjs.com/package/mysql)
 
+-------------------------------------------------------- 
 
 Supporting technologies: VisualStudio Code, MySQLWorkbench, Terminal
---------------------------------------------------------  
+
+-------------------------------------------------------- 
 Author: Arnab Majumdar
 
