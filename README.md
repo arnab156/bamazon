@@ -22,8 +22,8 @@ In bamazonCustomer.js you can:
    4. In case of insufficient quantity, you will receive an alert and product will be auto-replenished to 10 quantity.
    
  In bamanagerManager.js you can:
-    1. View all the products for Sale (with product id(SKU), price, and quantity) 
-    2. View Low Inventory (any product with less than 4 quantity)
+   1. View all the products for Sale (with product id(SKU), price, and quantity) 
+   2. View Low Inventory (any product with less than 4 quantity)
    3. Add to Inventory
    4. Add New Product 
    5. Delete a product
