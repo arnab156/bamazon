@@ -39,7 +39,7 @@ In bamazonCustomer.js you can:
 
   Technologies Uses?
     1.Node.js
-    2. Inquire NPM Package (https://www.npmjs.com/package/inquirer)
+    2.Inquirer NPM Package (https://www.npmjs.com/package/inquirer)
     3.MYSQL NPM Package (https://www.npmjs.com/package/mysql)
 
 -------------------------------------------------------- 
